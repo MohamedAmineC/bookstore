@@ -36,7 +36,7 @@ const Input:React.FC<InputProps> = ({
         ${errors[id] ? 'focus:border-rose-500' : 'focus:border-black'}
         `}
         />
-        <label htmlFor=""
+        <label htmlFor={id}
         className={`absolute text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0]
         ${formatPrice ? 'left-9' : 'left-4'}
         peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0
