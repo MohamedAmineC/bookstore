@@ -13,6 +13,7 @@ import {toast} from "react-hot-toast"
 import Button from "../Button"
 import useLoginModal from "@/app/hooks/useLoginModal"
 import {signIn} from "next-auth/react"
+import {PulseLoader} from "react-spinners"
 
 const RegisterModal = () => {
     const registerModal = useRegisterModal();
@@ -120,7 +121,7 @@ const RegisterModal = () => {
         isOpen={registerModal.isOpen}
         onClose={registerModal.onClose}
         title="Register"
-        actionLabel="Continue"
+        actionLabel={isLoading ? (<PulseLoader size={24} color="white" />) : 'Continue'}
         onSubmit={handleSubmit(onSubmit)}
         body={bodyContent}
         footer={footerContent}

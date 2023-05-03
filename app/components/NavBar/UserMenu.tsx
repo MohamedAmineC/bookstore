@@ -1,7 +1,7 @@
 "use client"
 import {AiOutlineMenu} from "react-icons/ai"
 import Avatar from "../Avatar"
-import { useCallback, useState } from "react"
+import { useCallback, useState,useEffect, useRef } from "react"
 import MenuItem from "./MenuItem"
 import useRegisterModal from "@/app/hooks/useRegisterModal"
 import useLoginModal from "@/app/hooks/useLoginModal"
@@ -21,11 +21,25 @@ const UserMenu:React.FC<UserMenuProps> = ({
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
     const [isOpen,setIsOpen] = useState(false)
+    const menuRef = useRef<HTMLDivElement>(null)
     const toggleOpen = useCallback(() => {
         setIsOpen(value => !value)
     },[])
+    const handleClickOutside = useCallback((event: MouseEvent) => {
+        if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+            setIsOpen(false);
+        }
+    }, []);
+
+    // add event listener on mount
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [handleClickOutside]);
   return (
-    <div className="relative">
+    <div className="relative" ref={menuRef}>
         <div className="flex items-center gap-3">
             <div
             onClick={() => {}}

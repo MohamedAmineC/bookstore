@@ -5,6 +5,7 @@ import Logo from "./Logo"
 import Search from "./Search"
 import UserMenu from "./UserMenu"
 import { User} from "@prisma/client"
+import Categories from "./Categories"
 
 interface NavBarI{
   currentUser?: User | null 
@@ -24,6 +25,7 @@ const NavBar:React.FC<NavBarI> = ({
                 </div>
             </Container>
         </div>
+        <Categories />
     </div>
   )
 }
