@@ -3,6 +3,7 @@
 import {useState,useEffect,useCallback} from "react"
 import {IoMdClose} from "react-icons/io"
 import Button from "../Button"
+import { JsxElement } from "typescript";
 
 interface ModalProps{
     isOpen?: boolean;
@@ -11,7 +12,7 @@ interface ModalProps{
     title?:string;
     body?: React.ReactElement;
     footer?: React.ReactElement;
-    actionLabel: string;
+    actionLabel: string | JSX.Element;
     disabled?: boolean;
     secondaryAction?: () => void;
     secondaryActionLabel?: string

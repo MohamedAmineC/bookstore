@@ -14,6 +14,7 @@ import Button from "../Button"
 import useLoginModal from "@/app/hooks/useLoginModal"
 import {signIn} from "next-auth/react"
 import { useRouter } from "next/navigation"
+import {PulseLoader} from "react-spinners"
 
 const LoginModal = () => {
     const registerModal = useRegisterModal();
@@ -119,7 +120,7 @@ const LoginModal = () => {
         isOpen={loginModal.isOpen}
         onClose={loginModal.onClose}
         title="Login"
-        actionLabel="Continue"
+        actionLabel={isLoading ? (<PulseLoader size={24} color="white" />) : 'Login'}
         onSubmit={handleSubmit(onSubmit)}
         body={bodyContent}
         footer={footerContent}
