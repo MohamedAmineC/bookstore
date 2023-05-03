@@ -7,7 +7,8 @@ const nextConfig = {
     domains:[
       "avatars.githubusercontent.com",
       "lh3.googleusercontent.com",
-      "platform-lookaside.fbsbx.com"
+      "platform-lookaside.fbsbx.com",
+      "res.cloudinary.com"
     ]
   }
 }

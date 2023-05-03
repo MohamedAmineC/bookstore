@@ -16,14 +16,15 @@ L.Icon.Default.mergeOptions({
 })
 
 interface MapProps {
-    center?: number[]
+    center?: number[],
+    zoom: boolean
 }
 
-const Map:React.FC<MapProps> = ({center}) => {
+const Map:React.FC<MapProps> = ({center,zoom}) => {
   return (
     <MapContainer
     center={center as L.LatLngExpression || [50,-10]}
-    zoom={center ? 6 : 2}
+    zoom={center ? (zoom ?  6 : 4 ): 2}
     scrollWheelZoom={false}
     className="h-[35vh] rounded-lg"
     >
