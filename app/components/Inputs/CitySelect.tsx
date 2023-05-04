@@ -9,7 +9,7 @@ import Select from "react-select"
 interface CitySelectProps {
     country?: CountrySelectValue
     value?: ICity,
-    state: IState | null,
+    state?: IState,
     onChange: (value:ICity) => void
 }
 
