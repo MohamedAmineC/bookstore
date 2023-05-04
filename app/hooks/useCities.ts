@@ -7,9 +7,13 @@ const useCities = () => {
     const getCitiesOfState = (country?:string,state?:string) => {
         return City.getCitiesOfState(country as string,state as string)
     }
+    const getStateByValue = (country?:string,state?:string) => {
+        return State.getStateByCodeAndCountry(country as string,state as string)
+    }
     return {
         getCitiesOfState,
-        getStatesByCountry
+        getStatesByCountry,
+        getStateByValue
     }
 }
 
