@@ -5,10 +5,11 @@ import { useState } from 'react';
 import {FcPrevious,FcNext} from "react-icons/fc"
 
 interface ImageCarouselProps{
-    images: string[]
+    images: string[],
+    controls?: boolean
 }
 
-const ImageCarousel:React.FC<ImageCarouselProps> = ({ images }) => {
+const ImageCarousel:React.FC<ImageCarouselProps> = ({ images,controls }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleNext = () => {
@@ -32,6 +33,22 @@ const ImageCarousel:React.FC<ImageCarouselProps> = ({ images }) => {
           alt={`Image ${index + 1}`}
         />
       ))}
+
+      { controls && (
+        <div className="absolute bottom-0 left-0 right-0 flex justify-center mb-2">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setActiveIndex(index)}
+            className={`w-3 h-3 mx-1 rounded-full ${
+              index === activeIndex ? 'bg-gray-800' : 'bg-gray-400'
+            }
+            ${index === activeIndex ? 'hover:bg-black' : 'bg-gray-700'}
+            focus:outline-none`}
+          />
+        ))}
+      </div>
+      )}
 
       <button
         onClick={(e) => {e.stopPropagation();handlePrev()}}
