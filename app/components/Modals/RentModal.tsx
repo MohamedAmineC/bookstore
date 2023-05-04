@@ -6,7 +6,7 @@ import useRentModal from '@/app/hooks/useRentModal'
 import Heading from '../Heading'
 import { categories } from '../NavBar/Categories'
 import CategoryInput from '../Inputs/CategoryInput'
-import { FieldValues, useForm } from 'react-hook-form'
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import CountrySelect from '../Inputs/CountrySelect'
 import CitySelect from '../Inputs/CitySelect'
 import Input from '../Inputs/Input'
@@ -14,6 +14,9 @@ import dynamic from 'next/dynamic'
 import Counter from '../Inputs/Counter'
 import ImageUpload from '../Inputs/ImageUpload'
 import StateSelect from '../Inputs/StateSelect'
+import axios from 'axios'
+import { toast } from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 enum STEPS {
   CATEGORY = 0,
@@ -45,19 +48,20 @@ const RentModal = () => {
         roomCount: 1,
         bathroomCount: 1,
         imagesSrc: [],
-        price: 1,
         title: '',
         description: '',
+        price: 1,
       }
     })
     const rentModal = useRentModal();
+    const router = useRouter();
     const [step,setStep] = useState(STEPS.CATEGORY);
+    const [isLoading,setIsLoading] = useState(false)
 
     const category = watch('category');
     const location = watch('location');
     const state = watch('state');
     const city = watch('city');
-    const address = watch('address');
     const guestCount = watch('guestCount')
     const roomCount = watch('roomCount')
     const bathroomCount = watch('bathroomCount')
@@ -85,7 +89,22 @@ const RentModal = () => {
       setStep((value) => value + 1)
     }
 
-
+    const onSubmit:SubmitHandler<FieldValues> = (data) => {
+      if(step !== STEPS.PRICE) return onNext();
+      setIsLoading(true);
+      axios.post('/api/listings',data)
+      .then(() => {
+        toast.success('Listing created!')
+        router.refresh();
+        reset()
+        setStep(STEPS.CATEGORY)
+        rentModal.onClose();
+      }).catch(() => {
+        toast.error('Something went wrong!')
+      }).finally(() => {
+        setIsLoading(false)
+      })
+    }
 
     const actionLabel = useMemo(() => {
       if(step === STEPS.PRICE){
@@ -155,6 +174,7 @@ const RentModal = () => {
           label='Address'
           register={register}
           errors={errors}
+          disabled={isLoading}
           required
           />
           <Map 
@@ -209,16 +229,62 @@ const RentModal = () => {
         </div>
       )
     }
+    if(step === STEPS.DESCRIPTION){
+      bodyContent = (
+        <div className='flex flex-col gap-8'>
+          <Heading 
+          title='How would you describe your place ?'
+          subTitle='Short and sweet works best!'
+          />
+          <Input 
+          id='title'
+          label='Title'
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+          />
+          <hr />
+          <Input 
+          id='description'
+          label='Description'
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+          />
+        </div>
+      )
+    }
+    if(step === STEPS.PRICE){
+      bodyContent = (
+        <div className='flex flex-col gap-8'>
+          <Heading 
+          title='Now, set your price!'
+          subTitle='How much do you charge per night!'
+          />
+          <Input 
+          id='price'
+          label='Price'
+          register={register}
+          errors={errors}
+          required
+          formatPrice
+          />
+        </div>
+      )
+    }
   return (
     <Modal 
     title='Airbnb your home!'
     isOpen={rentModal.isOpen}
     onClose={rentModal.onClose}
-    onSubmit={onNext}
+    onSubmit={handleSubmit(onSubmit)}
     actionLabel={actionLabel}
     secondaryActionLabel={secondaryActionLabel}
     secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
     body={bodyContent}
+    disabled={isLoading}
     />
   )
 }

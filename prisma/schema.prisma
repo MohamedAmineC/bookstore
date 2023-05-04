@@ -56,6 +56,10 @@ model Listing {
   bathroomCount Int
   guestCount    Int
   locationValue String
+  state         String
+  city          String?
+  address       String
+  coordinates   Float[]
   userId        String        @db.ObjectId
   price         Int
   user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)

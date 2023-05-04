@@ -22,7 +22,6 @@ interface MapProps {
 }
 
 const Map:React.FC<MapProps> = ({center,cityZoom,stateZoom}) => {
-  console.log(center ? (cityZoom ?  9 : (stateZoom ? 6 : 4) ) : 2)
   return (
     <MapContainer
     center={center as L.LatLngExpression || [50,-10]}
