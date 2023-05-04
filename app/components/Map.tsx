@@ -17,14 +17,16 @@ L.Icon.Default.mergeOptions({
 
 interface MapProps {
     center?: number[],
-    zoom: boolean
+    cityZoom: boolean,
+    stateZoom: boolean
 }
 
-const Map:React.FC<MapProps> = ({center,zoom}) => {
+const Map:React.FC<MapProps> = ({center,cityZoom,stateZoom}) => {
+  console.log(center ? (cityZoom ?  9 : (stateZoom ? 6 : 4) ) : 2)
   return (
     <MapContainer
     center={center as L.LatLngExpression || [50,-10]}
-    zoom={center ? (zoom ?  6 : 4 ): 2}
+    zoom={center ? (cityZoom ?  9 : (stateZoom ? 6 : 4) ) : 2}
     scrollWheelZoom={false}
     className="h-[35vh] rounded-lg"
     >

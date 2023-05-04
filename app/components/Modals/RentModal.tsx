@@ -13,6 +13,7 @@ import Input from '../Inputs/Input'
 import dynamic from 'next/dynamic'
 import Counter from '../Inputs/Counter'
 import ImageUpload from '../Inputs/ImageUpload'
+import StateSelect from '../Inputs/StateSelect'
 
 enum STEPS {
   CATEGORY = 0,
@@ -37,6 +38,7 @@ const RentModal = () => {
       defaultValues:{
         category: '',
         location: null,
+        state:null,
         city:null,
         address: '',
         guestCount: 1,
@@ -53,6 +55,7 @@ const RentModal = () => {
 
     const category = watch('category');
     const location = watch('location');
+    const state = watch('state');
     const city = watch('city');
     const address = watch('address');
     const guestCount = watch('guestCount')
@@ -65,7 +68,7 @@ const RentModal = () => {
       ssr: false
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    ,[location,city])
+    ,[location,city,state])
 
     const setCustomValue = (id:string,value:any) => {
       setValue(id,value,{
@@ -129,11 +132,21 @@ const RentModal = () => {
           value={location}
           onChange={(value) => {
             setCustomValue('location',value)
+            setCustomValue('state',null)
+            setCustomValue('city',null)
+          }}
+          />
+          <StateSelect 
+          country={location}
+          value={state}
+          onChange={(value) => {
+            setCustomValue('state',value)
             setCustomValue('city',null)
           }}
           />
           <CitySelect 
           country={location}
+          state={state}
           value={city}
           onChange={(value) => setCustomValue('city',value)}
           />
@@ -145,8 +158,9 @@ const RentModal = () => {
           required
           />
           <Map 
-          center={city ? [city.latitude,city.longitude] : location?.latlng}
-          zoom={city ? true : false }
+          center={city ? [city.latitude,city.longitude] : (state ? [state.latitude,state.longitude] : location?.latlng)}
+          cityZoom={city ? true : false }
+          stateZoom={state ? true : false}
           />
         </div>
       )

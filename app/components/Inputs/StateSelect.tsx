@@ -1,36 +1,34 @@
 "use client"
 
-import {ICity, IState} from "country-state-city/lib/interface"
+import { IState } from "country-state-city"
 import { CountrySelectValue } from "./CountrySelect"
 import useCities from "@/app/hooks/useCities"
 import { useMemo } from "react"
 import Select from "react-select"
 
-interface CitySelectProps {
+interface StateSelectProps {
+    value?: IState,
+    onChange: (value:IState) => void,
     country?: CountrySelectValue
-    value?: ICity,
-    state: IState | null,
-    onChange: (value:ICity) => void
 }
 
-const CitySelect:React.FC<CitySelectProps> = ({
-    value,onChange,country,state
+const StateSelect:React.FC<StateSelectProps> = ({
+    value,onChange,country
 }) => {
-    const {getCitiesOfState} = useCities();
-    const cities = useMemo(() => {
-        return getCitiesOfState(country?.value,state?.isoCode);
-    },[country,getCitiesOfState,state])
-    if(cities?.length === 0) return null;
-
+    const {getStatesByCountry} = useCities();
+    const states = useMemo(() => {
+        return getStatesByCountry(country?.value)   
+    },[country,getStatesByCountry]) 
+    if(states.length === 0) return null;
   return (
     <div>
-        <Select
-        placeholder='Anywhere'
+        <Select 
+        placeholder="Anywhere"
         isClearable
-        options={cities} 
+        options={states}
         value={value}
-        onChange={(value) => onChange(value as ICity)}
-        formatOptionLabel={(option:ICity) => (
+        onChange={(value) => onChange(value as IState)}
+        formatOptionLabel={(option:IState) => (
             <div className='flex items-center gap-3'>
                 <div>
                     {country?.flag}
@@ -59,4 +57,4 @@ const CitySelect:React.FC<CitySelectProps> = ({
   )
 }
 
-export default CitySelect
+export default StateSelect

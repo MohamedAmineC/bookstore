@@ -29,7 +29,6 @@ const ImageUpload:React.FC<ImageUploadProps> = ({
   const handleRemoveImage = useCallback((image:string) => {
     onChange(value.filter(item => item !== image))
   },[onChange,value])
-  console.log(value)
   return (
     <CldUploadWidget 
     onUpload={handleUpload}

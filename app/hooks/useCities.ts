@@ -1,11 +1,15 @@
-import {City} from "country-state-city"
+import {City,State} from "country-state-city"
 
 const useCities = () => {
-    const getCitiesByCountry = (id?:string) => {
-        return City.getCitiesOfCountry(id as string)
+    const getStatesByCountry = (id?:string) => {
+        return State.getStatesOfCountry(id);
+    }
+    const getCitiesOfState = (country?:string,state?:string) => {
+        return City.getCitiesOfState(country as string,state as string)
     }
     return {
-        getCitiesByCountry
+        getCitiesOfState,
+        getStatesByCountry
     }
 }
 
