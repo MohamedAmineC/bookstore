@@ -11,8 +11,9 @@ import SearchModal from './components/Modals/SearchModal'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'BookMate - Borrow and Share Books with Your Friends',
-  description: 'BookMate is a social media application that connects friends and enables them to borrow and share books with each other. With BookMate, you can easily browse your friends\' libraries, discover new books, and borrow the books you\'re interested in. The platform also allows you to search for specific books among nearby users, making it easy to find hard-to-find titles. BookMate is the perfect solution for book lovers who want to share their passion for reading with their friends. Sign up today and start sharing your favorite books with BookMate!',
+  title: ' Find the Perfect Vacation Rental | My Airbnb Clone App ',
+  description: 'Discover the perfect vacation rental with My Airbnb Clone App. Browse a wide selection of unique accommodations around the world and book your next stay today.',
+  keywords: ['Airbnb clone', 'vacation rental', 'accommodation', 'travel', 'booking']
 }
 
 export default async function RootLayout({
