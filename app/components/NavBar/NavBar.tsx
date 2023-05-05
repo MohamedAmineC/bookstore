@@ -6,6 +6,7 @@ import Search from "./Search"
 import UserMenu from "./UserMenu"
 import { User} from "@prisma/client"
 import Categories from "./Categories"
+import { usePathname } from "next/navigation"
 
 interface NavBarI{
   currentUser?: User | null 
@@ -14,12 +15,13 @@ interface NavBarI{
 const NavBar:React.FC<NavBarI> = ({
   currentUser
 }) => {
+  const pathname = usePathname();
   return (
     <div className='fixed w-full bg-white z-10 shadow-sm'>
         <div className='py-4 border-b-[1px]'>
             <Container>
                 <div className="flex items-center justify-between gap-3 md:gap-0">
-                    <Logo />
+                    <Logo show={pathname !== '/'} />
                     <Search />
                     <UserMenu currentUser={currentUser} />
                 </div>

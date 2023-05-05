@@ -7,7 +7,9 @@ import { useSearchParams } from "next/navigation"
 import { useMemo } from "react"
 import {BiSearch} from "react-icons/bi"
 
-const Search = () => {
+
+
+const Search:React.FC= () => {
     const params = useSearchParams();
     const searchModal = useSearchModal();
     const {getByValue} = useCountries();
@@ -41,7 +43,7 @@ const Search = () => {
         return 'Add guests'
     },[guestCount])
   return (
-    <div className="border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer"
+    <div className={`border-[1px] w-full sm:block md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer`}
     onClick={searchModal.onOpen}>
         <div className="flex items-center justify-between">
             <div className="text-sm font-semibold px-6">
