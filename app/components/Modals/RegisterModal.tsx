@@ -125,7 +125,7 @@ const RegisterModal = () => {
         isOpen={registerModal.isOpen}
         onClose={registerModal.onClose}
         title="Register"
-        actionLabel={isLoading ? (<PulseLoader size={24} color="white" />) : 'Continue'}
+        actionLabel={isLoading ? (<PulseLoader size={15} color="white" />) : 'Continue'}
         onSubmit={handleSubmit(onSubmit)}
         body={bodyContent}
         footer={footerContent}

@@ -122,7 +122,7 @@ const LoginModal = () => {
         isOpen={loginModal.isOpen}
         onClose={loginModal.onClose}
         title="Login"
-        actionLabel={isLoading ? (<PulseLoader size={24} color="white" />) : 'Login'}
+        actionLabel={isLoading ? (<PulseLoader size={15} color="white" />) : 'Login'}
         onSubmit={handleSubmit(onSubmit)}
         body={bodyContent}
         footer={footerContent}
