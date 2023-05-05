@@ -20,12 +20,16 @@ const StateSelect:React.FC<StateSelectProps> = ({
         return getStatesByCountry(country?.value)   
     },[country,getStatesByCountry]) 
     if(states.length === 0) return null;
+    const formattedStates = states.map((state) => ({
+        ...state,
+        label: state.name
+    }))
   return (
     <div>
         <Select 
         placeholder="Anywhere"
         isClearable
-        options={states}
+        options={formattedStates}
         value={value}
         onChange={(value) => onChange(value as IState)}
         formatOptionLabel={(option:IState) => (

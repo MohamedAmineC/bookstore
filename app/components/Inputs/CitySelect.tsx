@@ -21,13 +21,17 @@ const CitySelect:React.FC<CitySelectProps> = ({
         return getCitiesOfState(country?.value,state?.isoCode);
     },[country,getCitiesOfState,state])
     if(cities?.length === 0) return null;
+    const formattedCities = cities.map((city) => ({
+        ...city,
+        label: city.name
+    }))
 
   return (
     <div>
         <Select
         placeholder='Anywhere'
         isClearable
-        options={cities} 
+        options={formattedCities} 
         value={value}
         onChange={(value) => onChange(value as ICity)}
         formatOptionLabel={(option:ICity) => (
