@@ -1,4 +1,4 @@
-import Image from 'next/image'
+export const dynamic = 'force-dynamic'
 import { Inter } from 'next/font/google'
 import Container from './components/Container'
 import EmptyState from './components/EmptyState'
