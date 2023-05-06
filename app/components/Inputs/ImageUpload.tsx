@@ -5,6 +5,7 @@ import Image from "next/image"
 import { useCallback } from "react"
 import { IoMdClose } from "react-icons/io"
 import {TbPhotoPlus} from "react-icons/tb"
+import { MouseEvent } from "react"
 
 declare global {
   var cloudinary: any
@@ -26,7 +27,8 @@ const ImageUpload:React.FC<ImageUploadProps> = ({
       }
     }
   }, [onChange, value]);
-  const handleRemoveImage = useCallback((image:string) => {
+  const handleRemoveImage = useCallback((e:MouseEvent<HTMLDivElement, globalThis.MouseEvent>,image:string) => {
+    e.stopPropagation();
     onChange(value.filter(item => item !== image))
   },[onChange,value])
   return (
@@ -48,20 +50,21 @@ const ImageUpload:React.FC<ImageUploadProps> = ({
             {
               value && (
                 <div
-                className="absolute inset-0 grid w-full h-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-auto"
+                className={`absolute inset-0 grid w-full h-full grid-cols-1 gap-4 overflow-auto
+                ${value.length == 1 ? 'sm:grid-cols-1' : 'sm:grid-cols-2'}
+                ${value.length == 1 ? 'md:grid-cols-1' : (value.length == 2 ? 'md:grid-cols-2' : 'md:grid-cols-3')}`}
                 >
                   {value?.map((image) => (
                     <div key={image} className="relative col-span-1">
                       <Image 
                       alt="Upload Image"
-                      width={500}
-                      height={200}
+                      fill
                       style={{objectFit: 'cover'}}
                       src={image}
-                      className="col-span-1 h-full"
+                      className="col-span-1"
                       />
                       <div className="absolute top-2 right-1 bg-red-600/30 z-10 w-10 h-10 rounded-full text-white grid place-items-center"
-                      onClick={() => handleRemoveImage(image)}>
+                      onClick={(e) => handleRemoveImage(e,image)}>
                         <IoMdClose />
                       </div>
                     </div>
